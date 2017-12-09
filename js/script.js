@@ -2,9 +2,9 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.size = 4900;
-    let initialSquares = Array(this.size).fill(null);
-    //set initial seed
-    let seed = [730, 800, 870];
+    let initialSquares = Array(this.size).fill("O");
+    let seed = [75, 145, 215, 410, 479, 480, 481, 775, 776, 777, 845, 916,
+               1920, 1921, 1922, 1852, 1781, 1204, 1205, 1206, 1275];
     for (let i=0; i<seed.length; i++) {
       initialSquares[seed[i]]="X";
     }
@@ -17,8 +17,7 @@ class Game extends React.Component {
   componentDidMount() {
     this.timerID = setInterval(
       () => this.tick(),
-      1000000
-      //change to 1000
+      600
     );
   }
 
@@ -80,7 +79,7 @@ class Game extends React.Component {
         <h1>{this.state.count}</h1>
         <div id="board" className="flex-container">
           {this.state.squares.map((square,index) => 
-           <div className={square + "color"} id={"square" + index} key={index}></div>)}
+           <div className={square + "color"}  id={"square" + index} key={index}></div>)}
         </div>
       </div>
     );
