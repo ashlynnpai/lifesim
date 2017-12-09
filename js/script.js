@@ -1,7 +1,8 @@
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    let initialSquares = Array(4900).fill(null);
+    this.size = 4900;
+    let initialSquares = Array(this.size).fill(null);
     //set initial seed
     let seed = [730, 800, 870];
     for (let i=0; i<seed.length; i++) {
@@ -36,7 +37,7 @@ class Game extends React.Component {
     let adjacents = [];
     let s = this.state.squares;
     let neighborCount = 0;
-    let n = Math.sqrt(4900);
+    let n = Math.sqrt(this.size);
     for (var i=0; i<s.length; i++) {
       adjacents.push(i-1, i+1, i-n-1, i-n, i-n+1, i+n-1, i+n, i+n+1);
       for (var j=0; j<adjacents.length; j++) {
