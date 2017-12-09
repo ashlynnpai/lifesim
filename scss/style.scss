@@ -1,13 +1,11 @@
 $font-stack: Roboto;
+$board-color: #4b535c;
   
 body {
   text-align: center;
   font-family: $font-stack;
 }
 
-#board {
- 
-}
 
 .flex-container {
   display: flex;
@@ -24,4 +22,12 @@ body {
   height: 10px;
   border: solid 1px #505963;
   text-align: center;
+}
+
+.Xcolor {
+  background: #E55EA2;
+}
+
+.Ocolor {
+  background: $board-color;
 }

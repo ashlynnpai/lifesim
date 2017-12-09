@@ -80,7 +80,7 @@ class Game extends React.Component {
         <h1>{this.state.count}</h1>
         <div id="board" className="flex-container">
           {this.state.squares.map((square,index) => 
-           <div id={"square" + index} key={index}></div>)}
+           <div className={square + "color"} id={"square" + index} key={index}></div>)}
         </div>
       </div>
     );
