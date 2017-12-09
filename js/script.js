@@ -30,14 +30,16 @@ class Game extends React.Component {
     this.setState({
       count: this.state.count + 1
     });
-    this.dostuff()
+    this.cycle()
   }
   
-  dostuff() {
+  cycle() {
     let adjacents = [];
     let s = this.state.squares;
     let neighborCount = 0;
     let n = Math.sqrt(this.size);
+    let births = [];
+    let deaths = [];
     for (var i=0; i<s.length; i++) {
       adjacents.push(i-1, i+1, i-n-1, i-n, i-n+1, i+n-1, i+n, i+n+1);
       for (var j=0; j<adjacents.length; j++) {
@@ -45,27 +47,31 @@ class Game extends React.Component {
           neighborCount++;
         }
       }
-       if (neighborCount > 1) {  
-      console.log("index " + i + " neighbors " + neighborCount);
-      }
-      if (s[i] == null && neighborCount == 3) {
-        s[i] = "X";
-        document.getElementById("square" + i).style.background = "#E55EA2";
+
+      if (s[i] == "O" && neighborCount == 3) {
+        births.push(i);
       }
       else if ((s[i] == "X" && neighborCount < 2)
       || (s[i] == "X" && neighborCount > 3))
       {
-        s[i] = null;
-        document.getElementById("square" + i).style.background = "#4b535c";
+        deaths.push(i);
       } 
-      //change this to update all changes at once?
       neighborCount = 0;
-      adjacents = [];
+      adjacents = [];  
     }
-    this.setState({
-      squares: s
-      } 
-    )
+    
+    for (let k=0; k<births.length; k++) {
+      s[births[k]] = "X";
+    }
+      
+    for (let k=0; k<deaths.length; k++) {
+      s[deaths[k]] = "O";
+    }
+    births = [];
+    deaths = [];
+   this.setState({
+    squares: s
+   })
   }
 
   render() {
