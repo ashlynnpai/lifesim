@@ -6,7 +6,6 @@ body {
   font-family: $font-stack;
 }
 
-
 .flex-container {
   display: flex;
   justify-content: center;
@@ -31,3 +30,27 @@ body {
 .Ocolor {
   background: $board-color;
 }
+
+button {
+  border-radius: 5px;
+  margin: 5px;
+  height: 40px;
+  width: 80px;
+  font-weight: bold;
+  border: solid #4b535c;
+}
+
+button:focus {outline:0;}
+
+#pause {
+  background: #ffdb58;
+}
+
+#resume {
+  background: #7cff58;
+}
+
+#reset {
+  background: #ff587c;
+}
+

@@ -3,21 +3,21 @@ class Game extends React.Component {
     super(props);
     this.size = 4900;
     let initialSquares = Array(this.size).fill("O");
-    let seed = [75, 145, 215, 410, 479, 480, 481, 775, 776, 777, 845, 916,
-               1920, 1921, 1922, 1852, 1781, 1204, 1205, 1206, 1275];
+    let seed = [75, 145, 215, 410, 479, 480, 481, 775, 776, 777, 845, 916, 1920, 1921, 1922, 1852, 1781, 1204, 1205, 1206, 1275];
     for (let i=0; i<seed.length; i++) {
       initialSquares[seed[i]]="X";
     }
     this.state = {
                   count: 0, 
-                  squares: initialSquares
+                  squares: initialSquares,
+                  running: true
                  };
   }
 
   componentDidMount() {
     this.timerID = setInterval(
       () => this.tick(),
-      600
+      1000
     );
   }
 
@@ -26,10 +26,39 @@ class Game extends React.Component {
   }
 
   tick() {
+    if (this.state.running) {
+      this.setState({
+        count: this.state.count + 1
+      });
+      this.cycle()
+    }
+  }
+  
+  pause() {
+    //https://github.com/facebook/react/issues/5040
+    //'this' becomes undefined when called from onClick inside a class that extends React.Component 
     this.setState({
-      count: this.state.count + 1
+      running: false
     });
-    this.cycle()
+  }
+  
+  resume() { 
+    this.setState({
+      running: true
+    });
+  }
+  
+  reset() {
+    let initialSquares = Array(this.size).fill("O");
+        let seed = [75, 145, 215, 410, 479, 480, 481];
+    for (let i=0; i<seed.length; i++) {
+      initialSquares[seed[i]]="X";
+    }
+     this.state = {
+                  count: 0, 
+                  squares: initialSquares,
+                  running: true
+                 };  
   }
   
   cycle() {
@@ -77,6 +106,15 @@ class Game extends React.Component {
   render() {
     return (
       <div>
+        <button id="pause" onClick={this.pause.bind(this)}>
+        PAUSE
+        </button>
+        <button id="resume" onClick={this.resume.bind(this)}>
+        RESUME
+        </button>
+        <button id="reset" onClick={this.reset.bind(this)}>
+        RESET
+        </button>
         <h1>{this.state.count}</h1>
         <div id="board" className="flex-container">
           {this.state.squares.map((square,index) => 
