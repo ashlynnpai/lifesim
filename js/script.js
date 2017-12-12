@@ -33,20 +33,22 @@ class Game extends React.Component {
   }
   
   cycle() {
-    let adjacents = [];
+    //a large array representing the grid
     let s = this.state.squares;
     let neighborCount = 0;
     let n = Math.sqrt(this.size);
     let births = [];
     let deaths = [];
-    for (var i=0; i<s.length; i++) {
-      adjacents.push(i-1, i+1, i-n-1, i-n, i-n+1, i+n-1, i+n, i+n+1);
-      for (var j=0; j<adjacents.length; j++) {
+    //finds the eight neighboring squares 
+    
+    s.forEach(function(item, i){
+      const adjacents = [i-1, i+1, i-n-1, i-n, i-n+1, i+n-1, i+n, i+n+1];
+      for (let j=0; j<adjacents.length; j++) {
         if (s[adjacents[j]] == "X") {
           neighborCount++;
         }
       }
-
+    //determines if the central square will be born or die
       if (s[i] == "O" && neighborCount == 3) {
         births.push(i);
       }
@@ -56,9 +58,8 @@ class Game extends React.Component {
         deaths.push(i);
       } 
       neighborCount = 0;
-      adjacents = [];  
-    }
-    
+    });
+    //the array updates after all births and deaths for the round have been computer
     for (let k=0; k<births.length; k++) {
       s[births[k]] = "X";
     }
