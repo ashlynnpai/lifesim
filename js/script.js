@@ -17,7 +17,7 @@ class Game extends React.Component {
   componentDidMount() {
     this.timerID = setInterval(
       () => this.tick(),
-      1000
+      500
     );
   }
 
@@ -31,6 +31,31 @@ class Game extends React.Component {
         count: this.state.count + 1
       });
       this.cycle()
+      this.seed()
+    }
+  }
+  
+  seed() {
+    let s = this.state.squares;
+    let n = Math.sqrt(this.size);
+    let randomPoint = Math.floor(Math.random() * this.size)  
+    const blinker = [randomPoint - 1, randomPoint + 1, randomPoint];
+    const block = [randomPoint, randomPoint + 1, randomPoint + n,
+                randomPoint + n + 1];
+    const tub = [randomPoint, randomPoint + n * 2, 
+                 randomPoint + n - 1, randomPoint + n + 1];
+    const glider = [randomPoint - 1, randomPoint + 1, randomPoint,
+                   randomPoint + n - 1, randomPoint + n * 2];
+    let nice = [randomPoint - 1, randomPoint + 1, randomPoint,
+               randomPoint + n]
+    const patterns = [blinker, block, tub, glider];
+    if (Math.random() < .5) {
+      let chosen = patterns[Math.floor(Math.random() * patterns.length)];  
+      for (let i=0; i<chosen.length; i++) {
+        if (chosen[i] >= 0 && chosen[i] <= this.size) {
+          s[chosen[i]] = "X";
+        }
+      }
     }
   }
   
@@ -50,10 +75,10 @@ class Game extends React.Component {
   
   reset() {
     let initialSquares = Array(this.size).fill("O");
-        let seed = [75, 145, 215, 410, 479, 480, 481];
-    for (let i=0; i<seed.length; i++) {
-      initialSquares[seed[i]]="X";
-    }
+    //     let seed = [75, 145, 215, 410, 479, 480, 481];
+    // for (let i=0; i<seed.length; i++) {
+    //   initialSquares[seed[i]]="X";
+    // }
      this.state = {
                   count: 0, 
                   squares: initialSquares,
