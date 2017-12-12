@@ -75,10 +75,6 @@ class Game extends React.Component {
   
   reset() {
     let initialSquares = Array(this.size).fill("O");
-    //     let seed = [75, 145, 215, 410, 479, 480, 481];
-    // for (let i=0; i<seed.length; i++) {
-    //   initialSquares[seed[i]]="X";
-    // }
      this.state = {
                   count: 0, 
                   squares: initialSquares,
@@ -87,7 +83,6 @@ class Game extends React.Component {
   }
   
   cycle() {
-    //a large array representing the grid
     let s = this.state.squares;
     let neighborCount = 0;
     let n = Math.sqrt(this.size);
